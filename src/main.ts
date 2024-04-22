@@ -1,4 +1,5 @@
 import P5 from 'p5'
+import { playSound } from './audio'
 
 const points = [
   [400, 100],
@@ -59,3 +60,7 @@ const sketch = (p5: P5) => {
 }
 
 new P5(sketch)
+
+document.getElementById('play')?.addEventListener('click', () => {
+  playSound()
+})
