@@ -1,3 +1,4 @@
+// @ts-ignore
 import processorUrl from './processor.ts?url'
 
 export const playSound = async () => {
