@@ -15,7 +15,7 @@ const drawVectors = (vectors: P5.Vector[], p5: P5) => {
   p5.stroke('gray')
   p5.strokeWeight(1)
   for (let i = 0; i < vectors.length; i++) {
-    const a = vectors[i];
+    const a = vectors[i]
     const b = vectors[(i + 1) % vectors.length]
     p5.line(a.x, a.y, b.x, b.y)
   }
@@ -39,13 +39,15 @@ const sketch = (p5: P5) => {
 
     let magnitude = phase % step
     for (let i = 0; i < vectors.length; i++) {
-      const a = vectors[i];
+      const a = vectors[i]
       const b = vectors[(i + 1) % vectors.length]
-    
+
       const direction = P5.Vector.sub(b, a)
       const normalized = P5.Vector.normalize(direction)
       const increment = P5.Vector.mult(normalized, step)
-      const vector = a.copy().add(P5.Vector.mult(normalized, magnitude) as unknown as P5.Vector)
+      const vector = a
+        .copy()
+        .add(P5.Vector.mult(normalized, magnitude) as unknown as P5.Vector)
 
       while (magnitude < direction.mag()) {
         p5.point(vector.x, vector.y)
