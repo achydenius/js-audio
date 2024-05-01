@@ -1,25 +1,16 @@
-const frequency = 440
+import { getValue } from './graphics.ts'
 
 class AudioGenerator extends AudioWorkletProcessor {
-  private index = 0
-  private phase = 0
-
   constructor() {
     super()
   }
 
   process(_: Float32Array[][], outputs: Float32Array[][]) {
-    const amplitude = Math.sin(this.phase) * 0.5 + 0.5
     for (let i = 0; i < outputs[0][0].length; i++) {
-      outputs[0][0][i] =
-        Math.sin((frequency * 2 * Math.PI * this.index) / sampleRate) *
-        amplitude
-      outputs[0][1][i] =
-        Math.cos((frequency * 2 * Math.PI * this.index) / sampleRate) *
-        amplitude
-      this.index++
+      const [x, y] = getValue()
+      outputs[0][0][i] = x
+      outputs[0][1][i] = y
     }
-    this.phase += 0.01
 
     return true
   }
