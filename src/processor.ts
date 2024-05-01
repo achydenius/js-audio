@@ -1,4 +1,4 @@
-import { getValue } from './graphics.ts'
+import { getValue } from './signal.ts'
 
 class AudioGenerator extends AudioWorkletProcessor {
   constructor() {

@@ -1,5 +1,5 @@
 import P5 from 'p5'
-import { getValue } from './graphics.ts'
+import { getValue } from './signal.ts'
 
 const createSketch = (width: number, height: number) => (p5: P5) => {
   p5.setup = () => {
@@ -13,7 +13,7 @@ const createSketch = (width: number, height: number) => (p5: P5) => {
     p5.strokeWeight(5)
 
     const [x, y] = getValue()
-    p5.point(p5.map(x, -1, 1, 0, width), p5.map(y, -1, 1, 0, height))
+    p5.point(p5.map(x, -1, 1, 0, width), p5.map(-y, -1, 1, 0, height))
   }
 }
 
