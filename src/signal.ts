@@ -1,27 +1,38 @@
 import { vec2 } from 'gl-matrix'
 
-const triangle = [
-  [0, 1.0],
-  [-0.866, -0.5],
-  [0.866, -0.5],
-]
-const vectors = triangle.map(([x, y]) => vec2.fromValues(x, y))
+export const vectors = [
+  [-0.49, 0.25],
+  [-0.49, -0.25],
+  [0.49, -0.25],
+  [0.49, 0.25],
+].map(([x, y]) => vec2.fromValues(x, y))
 
-const current = vec2.create()
-let phase = 0
+const step = 0.2
+
 let index = 0
+let magnitude = 0
+let [a, b] = vectors
+let direction = vec2.subtract(vec2.create(), b, a)
+let normalized = vec2.normalize(vec2.create(), direction)
+let current = vec2.copy(vec2.create(), a)
+let increment = vec2.scale(vec2.create(), normalized, step)
 
 export const getValue = () => {
-  const a = vectors[index]
-  const b = vectors[(index + 1) % vectors.length]
-
-  vec2.lerp(current, a, b, phase)
-
-  phase += 0.01
-  if (phase > 1.0) {
-    phase -= 1.0
-    index = (index + 1) % vectors.length
+  if (magnitude >= vec2.length(direction)) {
+    index++
+    magnitude -= vec2.length(direction)
+    a = vectors[index % vectors.length]
+    b = vectors[(index + 1) % vectors.length]
+    vec2.subtract(direction, b, a)
+    vec2.normalize(normalized, direction)
+    vec2.scale(increment, normalized, step)
+    vec2.scaleAndAdd(current, a, normalized, magnitude)
   }
 
-  return current
+  if (index < vectors.length) {
+    const [x, y] = current
+    vec2.add(current, current, increment)
+    magnitude += step
+    return [x, y]
+  }
 }
