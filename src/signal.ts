@@ -7,7 +7,7 @@ export const vectors = [
   [0.49, 0.25],
 ].map(([x, y]) => vec2.fromValues(x, y))
 
-const step = 0.2
+const step = 1.0
 
 let index = 0
 let magnitude = 0
@@ -18,7 +18,7 @@ let current = vec2.copy(vec2.create(), a)
 let increment = vec2.scale(vec2.create(), normalized, step)
 
 export const getValue = () => {
-  if (magnitude >= vec2.length(direction)) {
+  while (magnitude >= vec2.length(direction)) {
     index++
     magnitude -= vec2.length(direction)
     a = vectors[index % vectors.length]
