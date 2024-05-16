@@ -28,18 +28,17 @@ const createSketch = (width: number, height: number) => (p5: P5) => {
     if (!init) {
       p5.background(220)
       drawVectors(vectors, p5)
+
       p5.frameRate(1)
-      init = true
     }
 
     p5.stroke('black')
     p5.strokeWeight(5)
 
-    const value = getValue()
-    if (value) {
-      const [x, y] = value
-      p5.point(p5.map(x, -1, 1, 0, width), p5.map(-y, -1, 1, 0, height))
-    }
+    const [x, y] = getValue(!init)
+    p5.point(p5.map(x, -1, 1, 0, width), p5.map(-y, -1, 1, 0, height))
+
+    init = true
   }
 }
 
