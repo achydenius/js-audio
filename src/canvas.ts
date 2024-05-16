@@ -1,6 +1,7 @@
 import P5 from 'p5'
-import { getValue, vectors } from './signal.ts'
+import { getValue } from './signal.ts'
 import { vec2 } from 'gl-matrix'
+import { getVectors } from './geometry.ts'
 
 const drawVectors = (vectors: vec2[], p5: P5) => {
   p5.stroke('grey')
@@ -27,7 +28,7 @@ const createSketch = (width: number, height: number) => (p5: P5) => {
   p5.draw = () => {
     if (!init) {
       p5.background(220)
-      drawVectors(vectors, p5)
+      drawVectors(getVectors(), p5)
 
       p5.frameRate(1)
     }
@@ -35,7 +36,7 @@ const createSketch = (width: number, height: number) => (p5: P5) => {
     p5.stroke('black')
     p5.strokeWeight(5)
 
-    const [x, y] = getValue(!init)
+    const [x, y] = getValue(!init ? getVectors() : undefined)
     p5.point(p5.map(x, -1, 1, 0, width), p5.map(-y, -1, 1, 0, height))
 
     init = true

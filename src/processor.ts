@@ -1,4 +1,5 @@
 import { getValue } from './signal.ts'
+import { getVectors } from './geometry.ts'
 
 class AudioGenerator extends AudioWorkletProcessor {
   private init = false
@@ -9,7 +10,7 @@ class AudioGenerator extends AudioWorkletProcessor {
 
   process(_: Float32Array[][], outputs: Float32Array[][]) {
     for (let i = 0; i < outputs[0][0].length; i++) {
-      const [x, y] = getValue(!this.init)
+      const [x, y] = getValue(!this.init ? getVectors() : undefined)
       outputs[0][0][i] = x
       outputs[0][1][i] = y
     }

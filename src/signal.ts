@@ -1,16 +1,10 @@
 import { vec2 } from 'gl-matrix'
 
-export const vectors = [
-  [-0.49, 0.25],
-  [-0.49, -0.25],
-  [0.49, -0.25],
-  [0.49, 0.25],
-].map(([x, y]) => vec2.fromValues(x, y))
-
 const step = 0.8
 
 let index = 0
 let magnitude = 0
+let vectors: vec2[] = []
 let a = vec2.create()
 let b = vec2.create()
 const direction = vec2.create()
@@ -25,8 +19,9 @@ const setInterpolationVectors = (a: vec2, b: vec2) => {
   vec2.scale(increment, normalized, step)
 }
 
-export const getValue = (reset = false) => {
-  if (reset) {
+export const getValue = (geometry?: vec2[]): vec2 => {
+  if (geometry) {
+    vectors = geometry
     index = 0
     magnitude = 0
     a = vectors[0]
